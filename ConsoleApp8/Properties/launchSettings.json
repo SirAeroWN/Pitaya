@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ConsoleApp8": {
+      "commandName": "Project",
+      "commandLineArgs": "--help"
+    }
+  }
+}
