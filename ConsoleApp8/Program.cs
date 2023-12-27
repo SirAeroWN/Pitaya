@@ -22,6 +22,7 @@ namespace ConsoleApp8
 
         static void HelloFrom(string name)
         {
+            Task.Delay(1000).Wait();
             Console.WriteLine($"Hello from '{name}'");
         }
     }

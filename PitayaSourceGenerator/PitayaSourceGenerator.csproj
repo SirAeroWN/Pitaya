@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <InternalsVisibleTo Include="CLIParserSourceGeneratorTests" Visible="false" />
+    <InternalsVisibleTo Include="PitayaSourceGeneratorTests" Visible="false" />
   </ItemGroup>
 
   <!-- https://www.meziantou.net/declaring-internalsvisibleto-in-the-csproj.htm  -->

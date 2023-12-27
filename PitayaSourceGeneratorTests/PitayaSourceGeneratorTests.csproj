@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CLIParserSourceGenerator\CLIParserSourceGenerator.csproj" />
+    <ProjectReference Include="..\PitayaSourceGenerator\PitayaSourceGenerator.csproj" />
   </ItemGroup>
 
 </Project>

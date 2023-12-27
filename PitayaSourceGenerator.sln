@@ -1,9 +1,8 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32002.185
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CLIParserSourceGeneratorTests", "CLIParserSourceGeneratorTests\CLIParserSourceGeneratorTests.csproj", "{4E8EFA3A-764E-45E0-AC49-A4A44661B034}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PitayaSourceGeneratorTests", "PitayaSourceGeneratorTests\PitayaSourceGeneratorTests.csproj", "{4E8EFA3A-764E-45E0-AC49-A4A44661B034}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CLIParserTests", "CLIParserTests\CLIParserTests.csproj", "{1B106C8B-3A1F-4234-BB63-F1196AFEF5B1}"
 EndProject
@@ -11,7 +10,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp8", "ConsoleApp8\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependencies", "Dependencies", "{698BAC6D-FD87-416E-A91E-65F6B6601E66}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CLIParserSourceGenerator", "CLIParserSourceGenerator\CLIParserSourceGenerator.csproj", "{87ECED3E-62AD-4B13-BAB4-D3BFA778391C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PitayaSourceGenerator", "PitayaSourceGenerator\PitayaSourceGenerator.csproj", "{87ECED3E-62AD-4B13-BAB4-D3BFA778391C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleAppDragonFruit", "ConsoleAppDragonFruit\ConsoleAppDragonFruit.csproj", "{FF05A1A3-0BD6-4BE3-BBB5-5E0E34958025}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +36,10 @@ Global
 		{87ECED3E-62AD-4B13-BAB4-D3BFA778391C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87ECED3E-62AD-4B13-BAB4-D3BFA778391C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87ECED3E-62AD-4B13-BAB4-D3BFA778391C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF05A1A3-0BD6-4BE3-BBB5-5E0E34958025}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF05A1A3-0BD6-4BE3-BBB5-5E0E34958025}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF05A1A3-0BD6-4BE3-BBB5-5E0E34958025}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF05A1A3-0BD6-4BE3-BBB5-5E0E34958025}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -42,5 +47,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{DAF353CE-4824-4DA3-831D-E5506D3DB33B} = {698BAC6D-FD87-416E-A91E-65F6B6601E66}
 		{87ECED3E-62AD-4B13-BAB4-D3BFA778391C} = {698BAC6D-FD87-416E-A91E-65F6B6601E66}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {345B34B4-89E5-4316-817B-A80991993E86}
 	EndGlobalSection
 EndGlobal
