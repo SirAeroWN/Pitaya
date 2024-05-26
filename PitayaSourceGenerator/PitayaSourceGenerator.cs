@@ -9,7 +9,7 @@ using System.Diagnostics;
 namespace CLIParserSourceGenerator
 {
     [Generator]
-    public class HelloSourceGenerator : ISourceGenerator
+    public class PitayaSourceGenerator : ISourceGenerator
     {
         public void Execute(GeneratorExecutionContext context)
         {
