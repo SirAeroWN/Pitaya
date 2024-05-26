@@ -26,7 +26,7 @@ namespace CLIParserSourceGeneratorTests
             string mainReturnType = "int";
             string assemblyName = "test";
             List<OptionInfo> options = [
-                OptionInfo.Create(FakeParamaterInfo.Create(parameterName: "aValue"))
+                OptionInfo.Create(FakeParameterInfo.Create(parameterName: "aValue"))
             ];
             string comments = """
                 <summary>
@@ -140,7 +140,7 @@ namespace CLIParserSourceGeneratorTests
             string mainReturnType = "int";
             string assemblyName = "test";
             List<OptionInfo> options = [
-                OptionInfo.Create(FakeParamaterInfo.Create(parameterName: "aValue"))
+                OptionInfo.Create(FakeParameterInfo.Create(parameterName: "aValue"))
             ];
             string comments = """
                 <summary>

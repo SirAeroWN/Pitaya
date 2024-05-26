@@ -23,8 +23,8 @@ namespace CLIParserSourceGeneratorTests
             List<CommentInfo> commentInfos = comments.Select(t => CommentInfo.Create(t)).ToList();
 
             List<OptionInfo> options = [
-                OptionInfo.Create(FakeParamaterInfo.Create(parameterName: "foo"))
-                , OptionInfo.Create(FakeParamaterInfo.Create(parameterName: "fooBar"))
+                OptionInfo.Create(FakeParameterInfo.Create(parameterName: "foo"))
+                , OptionInfo.Create(FakeParameterInfo.Create(parameterName: "fooBar"))
             ];
 
             var generator = new HelpTextGenerator("test", "This is a description", options, commentInfos);

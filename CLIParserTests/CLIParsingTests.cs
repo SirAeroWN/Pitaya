@@ -46,7 +46,7 @@ namespace CLIParserTests
         }
 
         [TestMethod]
-        public void MultipartName()
+        public void MultiPartName()
         {
             string[] args = [
                 ..defaultArgs

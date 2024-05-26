@@ -9,7 +9,7 @@ using System.Net.Sockets;
 
 namespace CLIParserSourceGeneratorTests.Fakes
 {
-    class FakeParamaterInfo : ParameterInfo
+    class FakeParameterInfo : ParameterInfo
     {
         private static IParameterSymbol? _stringParameter;
         private static IParameterSymbol StringParameter
@@ -50,11 +50,11 @@ namespace CLIParserSourceGeneratorTests.Fakes
             }
         }
 
-        public FakeParamaterInfo(string parameterName, ITypeSymbol type, bool hasDefaultValue, object? defaultValue = null) : base(parameterName, type, hasDefaultValue, defaultValue)
+        public FakeParameterInfo(string parameterName, ITypeSymbol type, bool hasDefaultValue, object? defaultValue = null) : base(parameterName, type, hasDefaultValue, defaultValue)
         {
         }
 
-        public static FakeParamaterInfo Create(
+        public static FakeParameterInfo Create(
             string? parameterName = null,
             ITypeSymbol? type = null,
             bool? hasDefaultValue = null,
@@ -80,7 +80,7 @@ namespace CLIParserSourceGeneratorTests.Fakes
                 type = mockedType.Object;
             }
 
-            return new FakeParamaterInfo(paramName, type, hasDefaultValue ?? false, defaultValue);
+            return new FakeParameterInfo(paramName, type, hasDefaultValue ?? false, defaultValue);
         }
 
         public static Mock<ITypeSymbol> MockType(NullableAnnotation? nullableAnnotation, string? typeName)

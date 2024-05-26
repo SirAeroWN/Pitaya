@@ -33,7 +33,7 @@ namespace CLIParserSourceGeneratorTests
         }
 
         [TestMethod]
-        public void NullableParamaterTest()
+        public void NullableParameterTest()
         {
             string paramName = "aValue";
             var mockedParamaterType = new Mock<IParameterSymbol>(MockBehavior.Strict);

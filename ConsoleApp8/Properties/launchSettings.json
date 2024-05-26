@@ -2,7 +2,7 @@
   "profiles": {
     "ConsoleApp8": {
       "commandName": "Project",
-      "commandLineArgs": "--help"
+      "commandLineArgs": "--required 42"
     }
   }
 }

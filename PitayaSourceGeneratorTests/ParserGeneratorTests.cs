@@ -20,8 +20,8 @@ namespace CLIParserSourceGeneratorTests
         public void CreateTest()
         {
             List<OptionInfo> options = [
-                OptionInfo.Create(FakeParamaterInfo.Create(parameterName: "aValue"))
-                , OptionInfo.Create(FakeParamaterInfo.Create(parameterName: "anUnsignedInt", typeName: "uint", hasDefaultValue: true, defaultValue: 1))
+                OptionInfo.Create(FakeParameterInfo.Create(parameterName: "aValue"))
+                , OptionInfo.Create(FakeParameterInfo.Create(parameterName: "anUnsignedInt", typeName: "uint", hasDefaultValue: true, defaultValue: 1))
             ];
 
             var parserGenerator = new ParserGenerator(options, _optionsClassName);
@@ -32,9 +32,9 @@ namespace CLIParserSourceGeneratorTests
         public void GenerateAndedSetValuesTest()
         {
             List<OptionInfo> options = [
-                OptionInfo.Create(FakeParamaterInfo.Create(parameterName: "aValue"))
-                , OptionInfo.Create(FakeParamaterInfo.Create(parameterName: "anotherValue"))
-                , OptionInfo.Create(FakeParamaterInfo.Create(parameterName: "yetAnotherValue"))
+                OptionInfo.Create(FakeParameterInfo.Create(parameterName: "aValue"))
+                , OptionInfo.Create(FakeParameterInfo.Create(parameterName: "anotherValue"))
+                , OptionInfo.Create(FakeParameterInfo.Create(parameterName: "yetAnotherValue"))
             ];
 
             var parserGenerator = new ParserGeneratorExposed(options, _optionsClassName);
@@ -47,11 +47,11 @@ namespace CLIParserSourceGeneratorTests
         public void GenerateAndedSetValues_SomeOptional_Test()
         {
             List<OptionInfo> options = [
-                OptionInfo.Create(FakeParamaterInfo.Create(parameterName: "aValue"))
+                OptionInfo.Create(FakeParameterInfo.Create(parameterName: "aValue"))
                 ,
-                OptionInfo.Create(FakeParamaterInfo.Create(parameterName: "anotherValue", typeName: "uint", hasDefaultValue: true, defaultValue: 1))
+                OptionInfo.Create(FakeParameterInfo.Create(parameterName: "anotherValue", typeName: "uint", hasDefaultValue: true, defaultValue: 1))
                 ,
-                OptionInfo.Create(FakeParamaterInfo.Create(parameterName: "yetAnotherValue"))
+                OptionInfo.Create(FakeParameterInfo.Create(parameterName: "yetAnotherValue"))
             ];
 
             var parserGenerator = new ParserGeneratorExposed(options, _optionsClassName);
@@ -64,7 +64,7 @@ namespace CLIParserSourceGeneratorTests
         public void GenerateHelpSectionTest()
         {
             List<OptionInfo> options = [
-                OptionInfo.Create(FakeParamaterInfo.Create(parameterName: "aValue"))
+                OptionInfo.Create(FakeParameterInfo.Create(parameterName: "aValue"))
             ];
 
             var parserGenerator = new ParserGeneratorExposed(options, _optionsClassName);
@@ -83,9 +83,9 @@ namespace CLIParserSourceGeneratorTests
         public void GenerateSourceTest()
         {
             List<OptionInfo> options = [
-                OptionInfo.Create(FakeParamaterInfo.Create(parameterName: "aValue"))
-                , OptionInfo.Create(FakeParamaterInfo.Create(parameterName: "anotherValue", typeName: "uint", hasDefaultValue: true, defaultValue: 1))
-                , OptionInfo.Create(FakeParamaterInfo.Create(parameterName: "yetAnotherValue", typeName: "string"))
+                OptionInfo.Create(FakeParameterInfo.Create(parameterName: "aValue"))
+                , OptionInfo.Create(FakeParameterInfo.Create(parameterName: "anotherValue", typeName: "uint", hasDefaultValue: true, defaultValue: 1))
+                , OptionInfo.Create(FakeParameterInfo.Create(parameterName: "yetAnotherValue", typeName: "string"))
             ];
 
             var parserGenerator = new ParserGenerator(options, _optionsClassName);
@@ -150,7 +150,7 @@ namespace CLIParserSourceGeneratorTests
         public void GenerateSource_Array_Test()
         {
             List<OptionInfo> options = [
-                OptionInfo.Create(FakeParamaterInfo.Create(parameterName: "aValue", type: FakeParamaterInfo.ArrayTypeSymbol(null)))
+                OptionInfo.Create(FakeParameterInfo.Create(parameterName: "aValue", type: FakeParameterInfo.ArrayTypeSymbol(null)))
             ];
 
             var parserGenerator = new ParserGenerator(options, _optionsClassName);

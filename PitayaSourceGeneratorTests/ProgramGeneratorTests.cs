@@ -22,9 +22,9 @@ namespace CLIParserSourceGeneratorTests
         public void GenerateSourceTest()
         {
             List<OptionInfo> options = [
-                OptionInfo.Create(FakeParamaterInfo.Create(parameterName: "aValue"))
-                , OptionInfo.Create(FakeParamaterInfo.Create(parameterName: "anotherValue", typeName: "uint", hasDefaultValue: true, defaultValue: 1))
-                , OptionInfo.Create(FakeParamaterInfo.Create(parameterName: "yetAnotherValue", typeName: "string"))
+                OptionInfo.Create(FakeParameterInfo.Create(parameterName: "aValue"))
+                , OptionInfo.Create(FakeParameterInfo.Create(parameterName: "anotherValue", typeName: "uint", hasDefaultValue: true, defaultValue: 1))
+                , OptionInfo.Create(FakeParameterInfo.Create(parameterName: "yetAnotherValue", typeName: "string"))
             ];
             var generator = new ProgramGenerator(options, _optionsClassName, _parserClassName, _helpText, MainReturnTypeEnum.Int);
             string source = generator.GenerateSource();

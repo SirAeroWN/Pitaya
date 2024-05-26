@@ -15,7 +15,7 @@ namespace CLIParserSourceGeneratorTests
         [TestMethod]
         public void CreateTest()
         {
-            var parameter = FakeParamaterInfo.Create(parameterName: "aValue");
+            var parameter = FakeParameterInfo.Create(parameterName: "aValue");
             List<OptionInfo> options = [
                 OptionInfo.Create(parameter)
                 , OptionInfo.Create(parameter)
@@ -30,10 +30,10 @@ namespace CLIParserSourceGeneratorTests
         public void GenerateSourceTest()
         {
             List<OptionInfo> options = [
-                OptionInfo.Create(FakeParamaterInfo.Create(parameterName: "aValue"))
-                , OptionInfo.Create(FakeParamaterInfo.Create(parameterName: "anUnsignedInt", typeName: "uint", hasDefaultValue: true, defaultValue: 1))
-                , OptionInfo.Create(FakeParamaterInfo.Create(parameterName: "aString", typeName: "string", hasDefaultValue: true, defaultValue: "bob"))
-                , OptionInfo.Create(FakeParamaterInfo.Create(parameterName: "aNullable", nullableAnnotation: Microsoft.CodeAnalysis.NullableAnnotation.Annotated))
+                OptionInfo.Create(FakeParameterInfo.Create(parameterName: "aValue"))
+                , OptionInfo.Create(FakeParameterInfo.Create(parameterName: "anUnsignedInt", typeName: "uint", hasDefaultValue: true, defaultValue: 1))
+                , OptionInfo.Create(FakeParameterInfo.Create(parameterName: "aString", typeName: "string", hasDefaultValue: true, defaultValue: "bob"))
+                , OptionInfo.Create(FakeParameterInfo.Create(parameterName: "aNullable", nullableAnnotation: Microsoft.CodeAnalysis.NullableAnnotation.Annotated))
             ];
             var optionsClassGenerator = new OptionsClassGenerator(options);
             var source = optionsClassGenerator.GenerateSource();

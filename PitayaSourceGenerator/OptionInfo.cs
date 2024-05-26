@@ -150,7 +150,7 @@ namespace CLIParserSourceGenerator
         internal MemberDeclarationSyntax BasicProperty()
         {
             string type = this.Parameter.Type.ToDisplayString();
-            string nullable = this.Parameter.IsNullable ? "?" : "";
+            string nullable = this.Parameter.IsNullable && this.Parameter.Type.NullableAnnotation != NullableAnnotation.Annotated ? "?" : "";
             string defaultValue = this.Parameter.HasDefaultValue ? $" = {this.GetDefaultValue()};" : "";
             string property = $"public {type}{nullable} {this.PropertyName} {{ get; set; }}{defaultValue}";
             MemberDeclarationSyntax? propertySyntax = ParseMemberDeclaration(property);
@@ -255,17 +255,24 @@ namespace CLIParserSourceGenerator
 
         private static string GenerateParseExpression(ITypeSymbol parameter)
         {
-            if (parameter.ToDisplayString() == "string")
+            string parameterType = parameter.ToDisplayString();
+            char[] badChars = ['?', '`', '[', '<'];
+            if (badChars.Any(parameterType.Contains))
+            {
+                parameterType = parameterType.Substring(0, parameterType.IndexOfAny(badChars));
+            }
+
+            if (parameterType == "string")
             {
                 return "args[i]";
             }
-            else if (parameter.ToDisplayString() == "System.Uri")
+            else if (parameterType == "System.Uri")
             {
                 return "new Uri(args[i])";
             }
             else if (parameter.IsValueType)
             {
-                return $"{parameter.ToDisplayString()}.Parse(args[i])";
+                return $"{parameterType}.Parse(args[i])";
             }
             else
             {
@@ -285,11 +292,11 @@ namespace CLIParserSourceGenerator
 
                 if (possibleCreationMethods.Any(m => m.Name == "Parse"))
                 {
-                    return $"{parameter.ToDisplayString()}.Parse(args[i])";
+                    return $"{parameterType}.Parse(args[i])";
                 }
                 else if (possibleCreationMethods.Any(m => m.Name == ".ctor"))
                 {
-                    return $"new {parameter.ToDisplayString()}(args[i])";
+                    return $"new {parameterType}(args[i])";
                 }
                 else
                 {

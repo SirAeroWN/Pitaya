@@ -71,6 +71,11 @@ namespace CLIParserSourceGeneratorTests
                 options: CompilationHelpers.CSharpCompilationOptions
             );
 
+            return CreateRunnable(compilation);
+        }
+
+        public static Func<string[], int> CreateRunnable(CSharpCompilation compilation)
+        {
             using (var stream = new MemoryStream())
             {
                 EmitResult emitResults = compilation.Emit(stream);

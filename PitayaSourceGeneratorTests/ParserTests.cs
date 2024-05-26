@@ -45,7 +45,7 @@ namespace CLIParserSourceGeneratorTests
         {
             string mainReturnType = "int";
             List<OptionInfo> options = [
-                OptionInfo.Create(FakeParamaterInfo.Create(parameterName: "aValue"))
+                OptionInfo.Create(FakeParameterInfo.Create(parameterName: "aValue"))
             ];
             string comments = """
                 <summary>
@@ -76,7 +76,7 @@ namespace CLIParserSourceGeneratorTests
         {
             string mainReturnType = "int";
             List<OptionInfo> options = [
-                OptionInfo.Create(FakeParamaterInfo.Create(parameterName: "aString", typeName: "string"))
+                OptionInfo.Create(FakeParameterInfo.Create(parameterName: "aString", typeName: "string"))
             ];
             string comments = """
                 <summary>
@@ -107,10 +107,10 @@ namespace CLIParserSourceGeneratorTests
         {
             string mainReturnType = "int";
             List<OptionInfo> options = [
-                OptionInfo.Create(FakeParamaterInfo.Create(parameterName: "aValue"))
-                , OptionInfo.Create(FakeParamaterInfo.Create(parameterName: "aValueTwo", typeName: "long"))
-                , OptionInfo.Create(FakeParamaterInfo.Create(parameterName: "aValueThree"))
-                , OptionInfo.Create(FakeParamaterInfo.Create(parameterName: "aString", typeName: "string"))
+                OptionInfo.Create(FakeParameterInfo.Create(parameterName: "aValue"))
+                , OptionInfo.Create(FakeParameterInfo.Create(parameterName: "aValueTwo", typeName: "long"))
+                , OptionInfo.Create(FakeParameterInfo.Create(parameterName: "aValueThree"))
+                , OptionInfo.Create(FakeParameterInfo.Create(parameterName: "aString", typeName: "string"))
             ];
             string comments = """
                 <summary>
@@ -146,7 +146,7 @@ namespace CLIParserSourceGeneratorTests
         {
             string mainReturnType = "int";
             List<OptionInfo> options = [
-                OptionInfo.Create(FakeParamaterInfo.Create(parameterName: "aDate", typeName: "System.DateTime"))
+                OptionInfo.Create(FakeParameterInfo.Create(parameterName: "aDate", typeName: "System.DateTime"))
             ];
             string comments = """
                 <summary>
@@ -179,7 +179,7 @@ namespace CLIParserSourceGeneratorTests
         {
             string mainReturnType = "int";
             List<OptionInfo> options = [
-                OptionInfo.Create(FakeParamaterInfo.Create(parameterName: "aUri", typeName: "System.Uri"))
+                OptionInfo.Create(FakeParameterInfo.Create(parameterName: "aUri", typeName: "System.Uri"))
             ];
             string comments = """
                 <summary>
@@ -212,7 +212,7 @@ namespace CLIParserSourceGeneratorTests
             string mainReturnType = "int";
             string paramName = "file";
             List<OptionInfo> options = [
-                OptionInfo.Create(FakeParamaterInfo.Create(parameterName: paramName, typeName: "System.IO.FileInfo", members: [FakeParamaterInfo.Constructor]))
+                OptionInfo.Create(FakeParameterInfo.Create(parameterName: paramName, typeName: "System.IO.FileInfo", members: [FakeParameterInfo.Constructor]))
             ];
             string comments = $$"""
                 <summary>
@@ -246,7 +246,7 @@ namespace CLIParserSourceGeneratorTests
             string mainReturnType = "int";
             string paramName = "anArray";
             List<OptionInfo> options = [
-                OptionInfo.Create(FakeParamaterInfo.Create(parameterName: paramName, type: FakeParamaterInfo.ArrayTypeSymbol(null)))
+                OptionInfo.Create(FakeParameterInfo.Create(parameterName: paramName, type: FakeParameterInfo.ArrayTypeSymbol(null)))
             ];
             string comments = $$"""
                 <summary>
@@ -279,8 +279,8 @@ namespace CLIParserSourceGeneratorTests
             string mainReturnType = "int";
             string paramName = "anArray";
             List<OptionInfo> options = [
-                OptionInfo.Create(FakeParamaterInfo.Create(parameterName: paramName, type: FakeParamaterInfo.ArrayTypeSymbol(null)))
-                , OptionInfo.Create(FakeParamaterInfo.Create(parameterName: "anInt"))
+                OptionInfo.Create(FakeParameterInfo.Create(parameterName: paramName, type: FakeParameterInfo.ArrayTypeSymbol(null)))
+                , OptionInfo.Create(FakeParameterInfo.Create(parameterName: "anInt"))
             ];
             string comments = $$"""
                 <summary>

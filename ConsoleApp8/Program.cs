@@ -7,16 +7,16 @@ namespace ConsoleApp8
     class Program
     {
         /// <summary>
-        /// Say hello
+        /// My sample program
         /// </summary>
-        /// <param name="aNumber">Leading number</param>
-        /// <param name="ints">Some numbers</param>
-        /// <param name="name">Their "name"</param>
-        //public static void Main(SampleEnum2? notRequired, List<int> ints, string name = "bob")
-        public static async Task<int> Main(int aNumber, FileInfo ints, string name = "george")
+        /// <param name="required"></param>
+        /// <param name="optionalFile"></param>
+        /// <param name="hasADefault"></param>
+        public static void Main(int required, FileInfo? optionalFile, string hasADefault = "My great default")
         {
-            HelloFrom(aNumber + name);
-            return 0;
+            Console.WriteLine($"required: {required}");
+            Console.WriteLine($"optionalFile was {(optionalFile == null ? "not passed" : "passed")}");
+            Console.WriteLine($"hasADefault: {hasADefault}");
         }
 
 

@@ -16,7 +16,7 @@ namespace CLIParserSourceGeneratorTests
         [TestMethod]
         public void CreateTest()
         {
-            var parameter = FakeParamaterInfo.Create(parameterName: "aValue");
+            var parameter = FakeParameterInfo.Create(parameterName: "aValue");
 
             var optionInfo = OptionInfo.Create(parameter);
 
@@ -32,7 +32,7 @@ namespace CLIParserSourceGeneratorTests
         [TestMethod]
         public void GenerateOptionPropertiesTest()
         {
-            var parameter = FakeParamaterInfo.Create(parameterName: "aValue");
+            var parameter = FakeParameterInfo.Create(parameterName: "aValue");
             var optionInfo = OptionInfo.Create(parameter);
             var properties = optionInfo.GenerateOptionProperties();
             Assert.AreEqual(2, properties.Count);
@@ -43,7 +43,7 @@ namespace CLIParserSourceGeneratorTests
         [TestMethod]
         public void GenerateOptionProperties_Optional_Test()
         {
-            var parameter = FakeParamaterInfo.Create(parameterName: "aValue", hasDefaultValue: true, defaultValue: 42);
+            var parameter = FakeParameterInfo.Create(parameterName: "aValue", hasDefaultValue: true, defaultValue: 42);
             var optionInfo = OptionInfo.Create(parameter);
             var properties = optionInfo.GenerateOptionProperties();
             Assert.AreEqual(1, properties.Count);
@@ -53,7 +53,7 @@ namespace CLIParserSourceGeneratorTests
         [TestMethod]
         public void ValueSetPropertyTest()
         {
-            var parameter = FakeParamaterInfo.Create(parameterName: "aValue");
+            var parameter = FakeParameterInfo.Create(parameterName: "aValue");
             var optionInfo = OptionInfo.Create(parameter);
             var property = optionInfo.ValueSetProperty();
             Assert.IsNotNull(property);
@@ -63,7 +63,7 @@ namespace CLIParserSourceGeneratorTests
         [TestMethod]
         public void ListBackingArrayPropertyTest()
         {
-            var parameter = FakeParamaterInfo.Create(parameterName: "aValue", type: FakeParamaterInfo.ArrayTypeSymbol(null));
+            var parameter = FakeParameterInfo.Create(parameterName: "aValue", type: FakeParameterInfo.ArrayTypeSymbol(null));
             var optionInfo = OptionInfo.Create(parameter);
             var property = optionInfo.ListBackingProperty();
             Assert.IsNotNull(property);
@@ -73,7 +73,7 @@ namespace CLIParserSourceGeneratorTests
         [TestMethod]
         public void BasicArrayPropertyTest()
         {
-            var parameter = FakeParamaterInfo.Create(parameterName: "aValue", typeName: "string[]");
+            var parameter = FakeParameterInfo.Create(parameterName: "aValue", typeName: "string[]");
             var optionInfo = OptionInfo.Create(parameter);
             var property = optionInfo.BasicArrayProperty();
             Assert.IsNotNull(property);
@@ -83,7 +83,7 @@ namespace CLIParserSourceGeneratorTests
         [TestMethod]
         public void BasicListPropertyTest()
         {
-            var parameter = FakeParamaterInfo.Create(parameterName: "aValue", typeName: "System.Collections.Generic.List<string>");
+            var parameter = FakeParameterInfo.Create(parameterName: "aValue", typeName: "System.Collections.Generic.List<string>");
             var optionInfo = OptionInfo.Create(parameter);
             var property = optionInfo.BasicArrayProperty();
             Assert.IsNotNull(property);
@@ -93,7 +93,7 @@ namespace CLIParserSourceGeneratorTests
         [TestMethod]
         public void GetArrayConversionMethodTest()
         {
-            var parameter = FakeParamaterInfo.Create(parameterName: "aValue", typeName: "string[]");
+            var parameter = FakeParameterInfo.Create(parameterName: "aValue", typeName: "string[]");
             var optionInfo = OptionInfo.Create(parameter);
             var conversionMethod = optionInfo.GetArrayConversionMethod();
             Assert.IsNotNull(conversionMethod);
@@ -103,7 +103,7 @@ namespace CLIParserSourceGeneratorTests
         [TestMethod]
         public void GetListConversionMethodTest()
         {
-            var parameter = FakeParamaterInfo.Create(parameterName: "aValue", typeName: "System.Collections.Generic.List<string>");
+            var parameter = FakeParameterInfo.Create(parameterName: "aValue", typeName: "System.Collections.Generic.List<string>");
             var optionInfo = OptionInfo.Create(parameter);
             var conversionMethod = optionInfo.GetArrayConversionMethod();
             Assert.IsNotNull(conversionMethod);
@@ -113,7 +113,7 @@ namespace CLIParserSourceGeneratorTests
         [TestMethod]
         public void BasicPropertyTest()
         {
-            var parameter = FakeParamaterInfo.Create(parameterName: "aValue");
+            var parameter = FakeParameterInfo.Create(parameterName: "aValue");
             var optionInfo = OptionInfo.Create(parameter);
             var property = optionInfo.BasicProperty();
             Assert.IsNotNull(property);
@@ -123,7 +123,7 @@ namespace CLIParserSourceGeneratorTests
         [TestMethod]
         public void BasicProperty_String_Test()
         {
-            var parameter = FakeParamaterInfo.Create(parameterName: "aValue", typeName: "string");
+            var parameter = FakeParameterInfo.Create(parameterName: "aValue", typeName: "string");
             var optionInfo = OptionInfo.Create(parameter);
             var property = optionInfo.BasicProperty();
             Assert.IsNotNull(property);
@@ -133,7 +133,7 @@ namespace CLIParserSourceGeneratorTests
         [TestMethod]
         public void BasicProperty_Nullable_Test()
         {
-            var parameter = FakeParamaterInfo.Create(parameterName: "aValue", nullableAnnotation: NullableAnnotation.Annotated);
+            var parameter = FakeParameterInfo.Create(parameterName: "aValue", nullableAnnotation: NullableAnnotation.Annotated);
             var optionInfo = OptionInfo.Create(parameter);
             var property = optionInfo.BasicProperty();
             Assert.IsNotNull(property);
@@ -143,7 +143,7 @@ namespace CLIParserSourceGeneratorTests
         [TestMethod]
         public void GetDefaultValueTest()
         {
-            var parameter = FakeParamaterInfo.Create(parameterName: "aValue", hasDefaultValue: true, defaultValue: 42);
+            var parameter = FakeParameterInfo.Create(parameterName: "aValue", hasDefaultValue: true, defaultValue: 42);
             var optionInfo = OptionInfo.Create(parameter);
             var defaultValue = optionInfo.GetDefaultValue();
             Assert.IsNotNull(defaultValue);
@@ -153,7 +153,7 @@ namespace CLIParserSourceGeneratorTests
         [TestMethod]
         public void GetDefaultValue_String_Test()
         {
-            var parameter = FakeParamaterInfo.Create(parameterName: "aValue", typeName: "string", hasDefaultValue: true, defaultValue: "bob");
+            var parameter = FakeParameterInfo.Create(parameterName: "aValue", typeName: "string", hasDefaultValue: true, defaultValue: "bob");
             var optionInfo = OptionInfo.Create(parameter);
             var defaultValue = optionInfo.GetDefaultValue();
             Assert.IsNotNull(defaultValue);
@@ -163,7 +163,7 @@ namespace CLIParserSourceGeneratorTests
         [TestMethod]
         public void GenerateSwitchSectionTest()
         {
-            var parameter = FakeParamaterInfo.Create(parameterName: "aValue");
+            var parameter = FakeParameterInfo.Create(parameterName: "aValue");
             var optionInfo = OptionInfo.Create(parameter);
             var switchSection = optionInfo.GenerateSwitchSection();
             Assert.IsNotNull(switchSection);
@@ -179,7 +179,7 @@ namespace CLIParserSourceGeneratorTests
         [TestMethod]
         public void GenerateSwitchSection_String_Test()
         {
-            var parameter = FakeParamaterInfo.Create(parameterName: "aValue", typeName: "string");
+            var parameter = FakeParameterInfo.Create(parameterName: "aValue", typeName: "string");
             var optionInfo = OptionInfo.Create(parameter);
             var switchSection = optionInfo.GenerateSwitchSection();
             Assert.IsNotNull(switchSection);
@@ -195,7 +195,7 @@ namespace CLIParserSourceGeneratorTests
         [TestMethod]
         public void GenerateSwitchSection_Uri_Test()
         {
-            var parameter = FakeParamaterInfo.Create(parameterName: "aValue", typeName: "System.Uri");
+            var parameter = FakeParameterInfo.Create(parameterName: "aValue", typeName: "System.Uri");
             var optionInfo = OptionInfo.Create(parameter);
             var switchSection = optionInfo.GenerateSwitchSection();
             Assert.IsNotNull(switchSection);
@@ -211,7 +211,7 @@ namespace CLIParserSourceGeneratorTests
         [TestMethod]
         public void GenerateSwitchSection_FileInfo_Test()
         {
-            var parameter = FakeParamaterInfo.Create(parameterName: "aValue", typeName: "System.IO.FileInfo", members: [ FakeParamaterInfo.Constructor ]);
+            var parameter = FakeParameterInfo.Create(parameterName: "aValue", typeName: "System.IO.FileInfo", members: [ FakeParameterInfo.Constructor ]);
             var optionInfo = OptionInfo.Create(parameter);
             var switchSection = optionInfo.GenerateSwitchSection();
             Assert.IsNotNull(switchSection);
@@ -227,7 +227,7 @@ namespace CLIParserSourceGeneratorTests
         [TestMethod]
         public void GenerateSwitchSection_Optional_Test()
         {
-            var parameter = FakeParamaterInfo.Create(parameterName: "aValue", typeName: "uint", hasDefaultValue: true, defaultValue: 1);
+            var parameter = FakeParameterInfo.Create(parameterName: "aValue", typeName: "uint", hasDefaultValue: true, defaultValue: 1);
             var optionInfo = OptionInfo.Create(parameter);
             var switchSection = optionInfo.GenerateSwitchSection();
             Assert.IsNotNull(switchSection);
@@ -242,7 +242,7 @@ namespace CLIParserSourceGeneratorTests
         [TestMethod]
         public void GenerateSetValueAccessTest()
         {
-            var parameter = FakeParamaterInfo.Create(parameterName: "aValue");
+            var parameter = FakeParameterInfo.Create(parameterName: "aValue");
             var optionInfo = OptionInfo.Create(parameter);
             var setValueAccess = optionInfo.GenerateSetValueAccess();
             Assert.IsNotNull(setValueAccess);
@@ -252,7 +252,7 @@ namespace CLIParserSourceGeneratorTests
         [TestMethod]
         public void GenerateSetValueAccess_NotRequired_Test()
         {
-            var parameter = FakeParamaterInfo.Create(parameterName: "aValue", hasDefaultValue: true, defaultValue: 42);
+            var parameter = FakeParameterInfo.Create(parameterName: "aValue", hasDefaultValue: true, defaultValue: 42);
             var optionInfo = OptionInfo.Create(parameter);
             var setValueAccess = optionInfo.GenerateSetValueAccess();
             Assert.IsNull(setValueAccess);
@@ -261,7 +261,7 @@ namespace CLIParserSourceGeneratorTests
         [TestMethod]
         public void GenerateSpecificMissingOptionCheckTest()
         {
-            var parameter = FakeParamaterInfo.Create(parameterName: "aValue");
+            var parameter = FakeParameterInfo.Create(parameterName: "aValue");
             var optionInfo = OptionInfo.Create(parameter);
             var specificMissingOptionCheck = optionInfo.GenerateSpecificMissingOptionCheck();
             Assert.IsNotNull(specificMissingOptionCheck);
