@@ -6,7 +6,7 @@ using System.Xml.Linq;
 namespace CLIParserTests
 {
     [TestClass]
-    public class UnitTest1
+    public class CLIParsingTests
     {
         private static readonly string[] defaultArgs = [
             "--arg1"
