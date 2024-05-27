@@ -9,14 +9,10 @@ namespace ConsoleApp8
         /// <summary>
         /// My sample program
         /// </summary>
-        /// <param name="required"></param>
-        /// <param name="optionalFile"></param>
-        /// <param name="hasADefault"></param>
-        public static void Main(int required, FileInfo? optionalFile, string hasADefault = "My great default")
+        /// <param name="negative">A negative integer</param>
+        public static void Main(MyNegativeInt negative)
         {
-            Console.WriteLine($"required: {required}");
-            Console.WriteLine($"optionalFile was {(optionalFile == null ? "not passed" : "passed")}");
-            Console.WriteLine($"hasADefault: {hasADefault}");
+            Console.WriteLine(negative);
         }
 
 
@@ -32,5 +28,32 @@ namespace ConsoleApp8
         Value1,
         Value2,
         Value3
+    }
+
+    class MyNegativeInt
+    {
+        public int Value { get; private set; }
+
+        private MyNegativeInt(int value)
+        {
+            this.Value = value;
+        }
+
+        public static MyNegativeInt Parse(string value)
+        {
+            int valueAsInt = int.Parse(value);
+
+            if (valueAsInt >= 0)
+            {
+                throw new ArgumentException($"{valueAsInt} must be negative");
+            }
+
+            return new MyNegativeInt(valueAsInt);
+        }
+
+        public override string ToString()
+        {
+            return $"MyNegativeInt has a value of {this.Value}";
+        }
     }
 }
