@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Collections.Immutable;
 
 namespace CLIParserSourceGeneratorTests
 {
@@ -55,7 +56,7 @@ namespace CLIParserSourceGeneratorTests
             return type;
         }
 
-        public static Func<string[], int> CompileProgram(string program, INamedTypeSymbol mainType, string mainReturnType, string assemblyName, List<OptionInfo> optionInfos, List<string> commentContent)
+        public static Func<string[], int?> CompileProgram(string program, INamedTypeSymbol mainType, string mainReturnType, string assemblyName, List<OptionInfo> optionInfos, List<string> commentContent)
         {
             var overallSourceGenerator = new OverallSourceGeneratorExposed(mainType, mainReturnType, assemblyName, optionInfos, commentContent);
             string source = overallSourceGenerator.GenerateSource();
@@ -74,7 +75,7 @@ namespace CLIParserSourceGeneratorTests
             return CreateRunnable(compilation);
         }
 
-        public static Func<string[], int> CreateRunnable(CSharpCompilation compilation)
+        public static Func<string[], int?> CreateRunnable(Compilation compilation)
         {
             using (var stream = new MemoryStream())
             {
@@ -93,15 +94,31 @@ namespace CLIParserSourceGeneratorTests
 
                 // return the main method
                 System.Reflection.MethodInfo method = CompilationHelpers.GetMethod(autoProgramType, "Main", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
-                int RunMain(string[] args)
+                int? RunMain(string[] args)
                 {
-                    var returnVal = method?.Invoke(testClassInstance, [args]);
-                    Assert.IsNotNull(returnVal);
-                    return (int)returnVal;
+                    object? returnVal = method?.Invoke(testClassInstance, [args]);
+                    return (int?)returnVal;
                 }
 
                 return RunMain;
             }
+        }
+
+
+        public static Compilation CreateCompilation(string source)
+            => CSharpCompilation.Create(
+                "gen.dll",
+                new List<SyntaxTree>() { CSharpSyntaxTree.ParseText(source) },
+                references: ReferenceAssemblies.NetStandard20.Cast<MetadataReference>().ToList(),
+                options: CompilationHelpers.CSharpCompilationOptions
+            );
+
+        public static void CompileAndRunGenerator(string program, out Compilation outputCompilation, out ImmutableArray<Diagnostic> diagnostics)
+        {
+            var compilation = CreateCompilation(program);
+            var generator = new PitayaSourceGenerator();
+            GeneratorDriver driver = CSharpGeneratorDriver.Create(generator);
+            driver.RunGeneratorsAndUpdateCompilation(compilation, out outputCompilation, out diagnostics);
         }
     }
 }

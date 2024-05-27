@@ -22,22 +22,6 @@ namespace CLIParserSourceGeneratorTests
     [TestClass]
     public class CompilationTests
     {
-        private static Compilation CreateCompilation(string source)
-            => CSharpCompilation.Create(
-                "gen.dll",
-                new List<SyntaxTree>() { CSharpSyntaxTree.ParseText(source) },
-                references: ReferenceAssemblies.NetStandard20.Cast<MetadataReference>().ToList(),
-                options: CompilationHelpers.CSharpCompilationOptions
-            );
-
-        private static void CompileAndRunGenerator(string program, out Compilation outputCompilation, out ImmutableArray<Diagnostic> diagnostics)
-        {
-            var compilation = CreateCompilation(program);
-            var generator = new PitayaSourceGenerator();
-            GeneratorDriver driver = CSharpGeneratorDriver.Create(generator);
-            driver.RunGeneratorsAndUpdateCompilation(compilation, out outputCompilation, out diagnostics);
-        }
-
         [TestMethod]
         public void CompilesTest()
         {
@@ -103,47 +87,6 @@ namespace CLIParserSourceGeneratorTests
         }
 
         [TestMethod]
-        public void RunsTest()
-        {
-            var mockedmainType = new Mock<INamedTypeSymbol>(MockBehavior.Strict);
-            mockedmainType.Setup(t => t.Name).Returns("Program");
-            var mockedmainNamespace = new Mock<INamespaceSymbol>(MockBehavior.Strict);
-            mockedmainNamespace.Setup(t => t.ToDisplayString(It.IsAny<SymbolDisplayFormat?>())).Returns("CLIParserSourceGeneratorTests");
-            mockedmainType.SetupGet(t => t.ContainingNamespace).Returns(mockedmainNamespace.Object);
-
-            string mainReturnType = "int";
-            string assemblyName = "test";
-            List<OptionInfo> options = [
-                OptionInfo.Create(FakeParameterInfo.Create(parameterName: "aValue"))
-            ];
-            string comments = """
-                <summary>
-                test
-                </summary>
-                <param name="aValue">Pass a value</param>
-                """;
-            List<string> commentLines = comments.Split('\n').Select(t => t.Trim()).ToList();
-
-            string program = """
-                class Program
-                {
-                    /// <summary>
-                    /// test
-                    /// </summary>
-                    /// <param name="aValue">Pass a value</param>
-                    public static int Main(int aValue)
-                    {
-                        return aValue;
-                    }
-                }
-                """;
-
-            Func<string[], int> generatedMethod = CompilationHelpers.CompileProgram(program, mockedmainType.Object, mainReturnType, assemblyName, options, commentLines);
-
-            Assert.AreEqual(1, generatedMethod([ "--a-value", "1" ]));
-        }
-
-        [TestMethod]
         public void FileInfoCompilesTest()
         {
             string program = """
@@ -169,7 +112,7 @@ namespace CLIParserSourceGeneratorTests
                     }
                 }
                 """;
-            CompileAndRunGenerator(program, out Compilation outputCompilation, out ImmutableArray<Diagnostic>  diagnostics);
+            CompilationHelpers.CompileAndRunGenerator(program, out Compilation outputCompilation, out ImmutableArray<Diagnostic>  diagnostics);
 
             // We can now assert things about the resulting compilation:
             Assert.IsTrue(diagnostics.IsEmpty); // there were no diagnostics created by the generators

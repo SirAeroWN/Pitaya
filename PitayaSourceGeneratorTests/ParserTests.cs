@@ -66,7 +66,7 @@ namespace CLIParserSourceGeneratorTests
                 }
                 """;
 
-            Func<string[], int> generatedMethod = CompilationHelpers.CompileProgram(program, MainType, mainReturnType, AssemblyName, options, commentLines);
+            Func<string[], int?> generatedMethod = CompilationHelpers.CompileProgram(program, MainType, mainReturnType, AssemblyName, options, commentLines);
 
             Assert.AreEqual(1, generatedMethod(["--a-value", "1"]));
         }
@@ -97,7 +97,7 @@ namespace CLIParserSourceGeneratorTests
                 }
                 """;
 
-            Func<string[], int> generatedMethod = CompilationHelpers.CompileProgram(program, MainType, mainReturnType, AssemblyName, options, commentLines);
+            Func<string[], int?> generatedMethod = CompilationHelpers.CompileProgram(program, MainType, mainReturnType, AssemblyName, options, commentLines);
 
             Assert.AreEqual(0, generatedMethod(["--a-string", "hello there"]));
         }
@@ -135,7 +135,7 @@ namespace CLIParserSourceGeneratorTests
                 }
                 """;
 
-            Func<string[], int> generatedMethod = CompilationHelpers.CompileProgram(program, MainType, mainReturnType, AssemblyName, options, commentLines);
+            Func<string[], int?> generatedMethod = CompilationHelpers.CompileProgram(program, MainType, mainReturnType, AssemblyName, options, commentLines);
 
             // 2147484647 is int.MaxValue + 1000
             Assert.AreEqual(0, generatedMethod(["--a-value", "1", "--a-value-two", "2147484647", "--a-value-three", "3", "--a-string", "hello there"]));
@@ -169,7 +169,7 @@ namespace CLIParserSourceGeneratorTests
                 }
                 """;
 
-            Func<string[], int> generatedMethod = CompilationHelpers.CompileProgram(program, MainType, mainReturnType, AssemblyName, options, commentLines);
+            Func<string[], int?> generatedMethod = CompilationHelpers.CompileProgram(program, MainType, mainReturnType, AssemblyName, options, commentLines);
 
             Assert.AreEqual(0, generatedMethod(["--a-date", "January 3, 2021"]));
         }
@@ -201,7 +201,7 @@ namespace CLIParserSourceGeneratorTests
                 }
                 """;
 
-            Func<string[], int> generatedMethod = CompilationHelpers.CompileProgram(program, MainType, mainReturnType, AssemblyName, options, commentLines);
+            Func<string[], int?> generatedMethod = CompilationHelpers.CompileProgram(program, MainType, mainReturnType, AssemblyName, options, commentLines);
 
             Assert.AreEqual(0, generatedMethod(["--a-uri", "https://www.Alarm.com/commercial-business"]));
         }
@@ -235,7 +235,7 @@ namespace CLIParserSourceGeneratorTests
                 }
                 """;
 
-            Func<string[], int> generatedMethod = CompilationHelpers.CompileProgram(program, MainType, mainReturnType, AssemblyName, options, commentLines);
+            Func<string[], int?> generatedMethod = CompilationHelpers.CompileProgram(program, MainType, mainReturnType, AssemblyName, options, commentLines);
 
             Assert.AreEqual(0, generatedMethod(["--file", "C:/temp.txt"]));
         }
@@ -268,7 +268,7 @@ namespace CLIParserSourceGeneratorTests
                 }
                 """;
 
-            Func<string[], int> generatedMethod = CompilationHelpers.CompileProgram(program, MainType, mainReturnType, AssemblyName, options, commentLines);
+            Func<string[], int?> generatedMethod = CompilationHelpers.CompileProgram(program, MainType, mainReturnType, AssemblyName, options, commentLines);
 
             Assert.AreEqual(0, generatedMethod(["--an-array", "1", "2", "3"]));
         }
@@ -303,7 +303,7 @@ namespace CLIParserSourceGeneratorTests
                 }
                 """;
 
-            Func<string[], int> generatedMethod = CompilationHelpers.CompileProgram(program, MainType, mainReturnType, AssemblyName, options, commentLines);
+            Func<string[], int?> generatedMethod = CompilationHelpers.CompileProgram(program, MainType, mainReturnType, AssemblyName, options, commentLines);
 
             Assert.AreEqual(0, generatedMethod(["--an-array", "1", "2", "3", "--an-int", "42"]));
         }
