@@ -9,7 +9,8 @@ namespace CLIParserSourceGenerator
     {
         public static string Optionify(string name)
         {
-            var rgx = new Regex(@"[A-Z](?=[a-z])");
+            var rgx = new Regex(@"[A-Z](?=[a-z])|([A-Z]+$)");
+            name = name.ToLower()[0] + name.Substring(1);
             return "--" + rgx.Replace(name, m => "-" + m.Value.ToLower()).ToLower();
         }
 

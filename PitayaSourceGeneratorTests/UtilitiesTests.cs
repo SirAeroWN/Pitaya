@@ -10,6 +10,8 @@ namespace CLIParserSourceGeneratorTests
         [DataRow("name", "--name")]
         [DataRow("aName", "--a-name")]
         [DataRow("ABCValue", "--abc-value")]
+        [DataRow("FirstChar", "--first-char")]
+        [DataRow("userID", "--user-id")]
         public void OptionifyTest(string paramName, string expected)
         {
             string actual = Utilities.Optionify(paramName);
