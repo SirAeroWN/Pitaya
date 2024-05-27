@@ -88,7 +88,7 @@ namespace CLIParserSourceGeneratorTests.Fakes
             typeName ??= "int";
             var mockedType = new Mock<ITypeSymbol>(MockBehavior.Strict);
             mockedType.SetupGet(t => t.NullableAnnotation).Returns(nullableAnnotation ?? NullableAnnotation.None);
-            mockedType.Setup(t => t.ToDisplayString(It.IsAny<SymbolDisplayFormat>())).Returns(typeName);
+            mockedType.Setup(t => t.ToDisplayString(It.IsAny<SymbolDisplayFormat>())).Returns(typeName + (nullableAnnotation == NullableAnnotation.Annotated ? "?" : ""));
 
             string namespaceName = "System";
             int lastDot = typeName.LastIndexOf('.');
