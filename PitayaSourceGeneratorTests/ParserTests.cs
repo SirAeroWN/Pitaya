@@ -103,6 +103,37 @@ namespace CLIParserSourceGeneratorTests
         }
 
         [TestMethod]
+        public void QuotedStringTest()
+        {
+            string mainReturnType = "int";
+            List<OptionInfo> options = [
+                OptionInfo.Create(FakeParameterInfo.Create(parameterName: "aString", typeName: "string"))
+            ];
+            string comments = """
+                <summary>
+                test
+                </summary>
+                <param name="aString">Pass a value</param>
+                """;
+            List<string> commentLines = comments.Split('\n').Select(t => t.Trim()).ToList();
+
+            string program = $$"""
+                class Program
+                {
+                    {{string.Join("\n", commentLines.Select(cl => "/// " + cl))}}
+                    public static int Main(string aString)
+                    {
+                        return aString == "--hello there" ? 0 : 1;
+                    }
+                }
+                """;
+
+            Func<string[], int?> generatedMethod = CompilationHelpers.CompileProgram(program, MainType, mainReturnType, AssemblyName, options, commentLines);
+
+            Assert.AreEqual(0, generatedMethod(["--a-string", "--hello there"]));
+        }
+
+        [TestMethod]
         public void MultipleArgsTest()
         {
             string mainReturnType = "int";
