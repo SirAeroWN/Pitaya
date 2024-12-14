@@ -45,5 +45,29 @@ namespace CLIParserSourceGeneratorTests
 
             Assert.AreEqual(expected, source);
         }
+
+        [TestMethod]
+        public void GenerateHelpWithoutCommentsTest()
+        {
+            List<OptionInfo> options = [
+                OptionInfo.Create(FakeParameterInfo.Create(parameterName: "foo"))
+                , OptionInfo.Create(FakeParameterInfo.Create(parameterName: "fooBar"))
+            ];
+
+            var generator = new HelpTextGenerator("test", "", options, new List<CommentInfo>());
+            string source = generator.Generate();
+            string expected = """
+                Usage:
+                  test [options]
+
+                Options:
+                  --foo <int>
+                  --foo-bar <int>
+                  -?, -h, --help   Show help and usage information
+
+                """;
+
+            Assert.AreEqual(expected, source);
+        }
     }
 }

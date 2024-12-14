@@ -6,15 +6,10 @@ namespace ConsoleApp8
 {
     class Program
     {
-        /// <summary>
-        /// My sample program
-        /// </summary>
-        /// <param name="negative">A negative integer</param>
         public static void Main(MyNegativeInt negative)
         {
             Console.WriteLine(negative);
         }
-
 
         static void HelloFrom(string name)
         {
