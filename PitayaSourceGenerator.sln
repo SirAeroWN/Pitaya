@@ -6,13 +6,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PitayaSourceGeneratorTests"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CLIParserTests", "CLIParserTests\CLIParserTests.csproj", "{1B106C8B-3A1F-4234-BB63-F1196AFEF5B1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp8", "ConsoleApp8\ConsoleApp8.csproj", "{DAF353CE-4824-4DA3-831D-E5506D3DB33B}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependencies", "Dependencies", "{698BAC6D-FD87-416E-A91E-65F6B6601E66}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PitayaSourceGenerator", "PitayaSourceGenerator\PitayaSourceGenerator.csproj", "{87ECED3E-62AD-4B13-BAB4-D3BFA778391C}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleAppDragonFruit", "ConsoleAppDragonFruit\ConsoleAppDragonFruit.csproj", "{FF05A1A3-0BD6-4BE3-BBB5-5E0E34958025}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{55B302F2-F1F9-4DD9-B495-811664F9B1DD}"
 	ProjectSection(SolutionItems) = preProject
@@ -33,24 +29,14 @@ Global
 		{1B106C8B-3A1F-4234-BB63-F1196AFEF5B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B106C8B-3A1F-4234-BB63-F1196AFEF5B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B106C8B-3A1F-4234-BB63-F1196AFEF5B1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DAF353CE-4824-4DA3-831D-E5506D3DB33B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DAF353CE-4824-4DA3-831D-E5506D3DB33B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DAF353CE-4824-4DA3-831D-E5506D3DB33B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DAF353CE-4824-4DA3-831D-E5506D3DB33B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{87ECED3E-62AD-4B13-BAB4-D3BFA778391C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{87ECED3E-62AD-4B13-BAB4-D3BFA778391C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87ECED3E-62AD-4B13-BAB4-D3BFA778391C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87ECED3E-62AD-4B13-BAB4-D3BFA778391C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FF05A1A3-0BD6-4BE3-BBB5-5E0E34958025}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FF05A1A3-0BD6-4BE3-BBB5-5E0E34958025}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FF05A1A3-0BD6-4BE3-BBB5-5E0E34958025}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FF05A1A3-0BD6-4BE3-BBB5-5E0E34958025}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{DAF353CE-4824-4DA3-831D-E5506D3DB33B} = {698BAC6D-FD87-416E-A91E-65F6B6601E66}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {345B34B4-89E5-4316-817B-A80991993E86}
