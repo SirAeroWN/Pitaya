@@ -43,7 +43,7 @@ namespace CLIParserSourceGeneratorTests
 
                 """;
 
-            Assert.AreEqual(expected, source);
+            Assert.AreEqual(expected.Replace("\r\n", "\n"), source.Replace("\r\n", "\n"));
         }
 
         [TestMethod]
@@ -67,7 +67,7 @@ namespace CLIParserSourceGeneratorTests
 
                 """;
 
-            Assert.AreEqual(expected, source);
+            Assert.AreEqual(expected.Replace("\r\n", "\n"), source.Replace("\r\n", "\n"));
         }
     }
 }

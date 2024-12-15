@@ -164,7 +164,7 @@ namespace CLIParserSourceGeneratorTests
                   -?, -h, --help   Show help and usage information
 
                 """;
-            Assert.AreEqual(expected, helpText);
+            Assert.AreEqual(expected.Replace("\r\n", "\n"), helpText.Replace("\r\n", "\n"));
         }
 
         [TestMethod]
