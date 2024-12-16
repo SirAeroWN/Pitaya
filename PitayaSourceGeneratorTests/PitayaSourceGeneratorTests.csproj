@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PitayaSourceGenerator\PitayaSourceGenerator.csproj" />
+    <ProjectReference Include="..\PitayaSourceGenerator\Pitaya.csproj" />
   </ItemGroup>
 
 </Project>
