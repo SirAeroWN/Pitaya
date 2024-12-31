@@ -184,6 +184,25 @@ namespace CLIParserSourceGenerator
             {
                 statements.Add(this.GenerateArrayLikeParseStatement());
             }
+            else if (this.Parameter.Type.ToDisplayString() == "bool")
+            {
+                statements.Add(GenerateParseStatement(this.PropertyName, this.Parameter.Type));
+                statements.Add(
+                    IfStatement(
+                        ParseExpression("i < args.Length && bool.TryParse(args[i], out bool value)"),
+                        Block(
+                            ParseStatement($"options.{this.PropertyName} = value;")
+                        )
+                    )
+                    .WithElse(
+                        ElseClause(
+                            Block(
+                                ParseStatement("i--;")
+                            )
+                        )
+                    )
+                );
+            }
             else
             {
                 statements.Add(GenerateParseStatement(this.PropertyName, this.Parameter.Type));
@@ -208,7 +227,11 @@ namespace CLIParserSourceGenerator
                     )
                 )
                 .WithStatements(
-                    List<StatementSyntax>(statements)
+                    SingletonList<StatementSyntax>(
+                        Block(
+                            List<StatementSyntax>(statements)
+                        )
+                    )
                 );
         }
 
@@ -269,6 +292,10 @@ namespace CLIParserSourceGenerator
             else if (parameterType == "System.Uri")
             {
                 return "new Uri(args[i])";
+            }
+            else if (parameterType == "bool" || parameterType == "System.Boolean")
+            {
+                return "true";
             }
             else if (parameter.IsValueType)
             {

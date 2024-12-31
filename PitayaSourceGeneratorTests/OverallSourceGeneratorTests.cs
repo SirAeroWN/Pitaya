@@ -86,16 +86,24 @@ namespace CLIParserSourceGeneratorTests
                             switch (arg)
                             {
                                 case "--a-value":
+                                {
                                     options.aValue = int.Parse(args[i]);
                                     options._aValueValueSet = true;
                                     break;
+                                }
+
                                 case "-h":
                                 case "-?":
                                 case "--help":
+                                {
                                     options.___ShowHelp___ = true;
                                     break;
+                                }
+
                                 default:
+                                {
                                     throw new ArgumentException($"'{arg}' is not a recognized option");
+                                }
                             }
                         }
 

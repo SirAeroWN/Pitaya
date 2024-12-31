@@ -17,13 +17,15 @@ namespace CLIParserSourceGeneratorTests
         public void NormalParameterTest()
         {
             string paramName = "aValue";
-            var mockedParamaterType = new Mock<IParameterSymbol>(MockBehavior.Strict);
-            mockedParamaterType.SetupGet(p => p.Name).Returns(paramName);
+            string typeName = "int";
+            var mockedParameterType = new Mock<IParameterSymbol>(MockBehavior.Strict);
+            mockedParameterType.SetupGet(p => p.Name).Returns(paramName);
             var mockedType = new Mock<ITypeSymbol>(MockBehavior.Strict);
             mockedType.SetupGet(t => t.NullableAnnotation).Returns(NullableAnnotation.None);
-            mockedParamaterType.SetupGet(p => p.Type).Returns(mockedType.Object);
-            mockedParamaterType.SetupGet(p => p.HasExplicitDefaultValue).Returns(false);
-            var parameterInfo = ParameterInfo.Create(mockedParamaterType.Object);
+            mockedType.SetupGet(p => p.Name).Returns(typeName);
+            mockedParameterType.SetupGet(p => p.Type).Returns(mockedType.Object);
+            mockedParameterType.SetupGet(p => p.HasExplicitDefaultValue).Returns(false);
+            var parameterInfo = ParameterInfo.Create(mockedParameterType.Object);
 
             Assert.AreEqual(paramName, parameterInfo.ParameterName);
             Assert.AreEqual(mockedType.Object, parameterInfo.Type);
@@ -36,13 +38,15 @@ namespace CLIParserSourceGeneratorTests
         public void NullableParameterTest()
         {
             string paramName = "aValue";
-            var mockedParamaterType = new Mock<IParameterSymbol>(MockBehavior.Strict);
-            mockedParamaterType.SetupGet(p => p.Name).Returns(paramName);
+            string typeName = "int?";
+            var mockedParameterType = new Mock<IParameterSymbol>(MockBehavior.Strict);
+            mockedParameterType.SetupGet(p => p.Name).Returns(paramName);
             var mockedType = new Mock<ITypeSymbol>(MockBehavior.Strict);
             mockedType.SetupGet(t => t.NullableAnnotation).Returns(NullableAnnotation.Annotated);
-            mockedParamaterType.SetupGet(p => p.Type).Returns(mockedType.Object);
-            mockedParamaterType.SetupGet(p => p.HasExplicitDefaultValue).Returns(false);
-            var parameterInfo = ParameterInfo.Create(mockedParamaterType.Object);
+            mockedType.SetupGet(p => p.Name).Returns(typeName);
+            mockedParameterType.SetupGet(p => p.Type).Returns(mockedType.Object);
+            mockedParameterType.SetupGet(p => p.HasExplicitDefaultValue).Returns(false);
+            var parameterInfo = ParameterInfo.Create(mockedParameterType.Object);
 
             Assert.IsTrue(parameterInfo.IsNullable);
         }
@@ -51,14 +55,14 @@ namespace CLIParserSourceGeneratorTests
         public void DefaultParameterTest()
         {
             string paramName = "aValue";
-            var mockedParamaterType = new Mock<IParameterSymbol>(MockBehavior.Strict);
-            mockedParamaterType.SetupGet(p => p.Name).Returns(paramName);
+            var mockedParameterType = new Mock<IParameterSymbol>(MockBehavior.Strict);
+            mockedParameterType.SetupGet(p => p.Name).Returns(paramName);
             var mockedType = new Mock<ITypeSymbol>(MockBehavior.Strict);
             mockedType.SetupGet(t => t.NullableAnnotation).Returns(NullableAnnotation.None);
-            mockedParamaterType.SetupGet(p => p.Type).Returns(mockedType.Object);
-            mockedParamaterType.SetupGet(p => p.HasExplicitDefaultValue).Returns(true);
-            mockedParamaterType.SetupGet(p => p.ExplicitDefaultValue).Returns(42);
-            var parameterInfo = ParameterInfo.Create(mockedParamaterType.Object);
+            mockedParameterType.SetupGet(p => p.Type).Returns(mockedType.Object);
+            mockedParameterType.SetupGet(p => p.HasExplicitDefaultValue).Returns(true);
+            mockedParameterType.SetupGet(p => p.ExplicitDefaultValue).Returns(42);
+            var parameterInfo = ParameterInfo.Create(mockedParameterType.Object);
 
             Assert.IsTrue(parameterInfo.HasDefaultValue);
             Assert.IsNotNull(parameterInfo.DefaultValue);

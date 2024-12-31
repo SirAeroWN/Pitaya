@@ -28,8 +28,8 @@ namespace CLIParserSourceGenerator
             return new ParameterInfo(
                 parameterName: parameter.Name,
                 type: parameter.Type,
-                hasDefaultValue: parameter.HasExplicitDefaultValue,
-                defaultValue: parameter.HasExplicitDefaultValue ? parameter.ExplicitDefaultValue : null
+                hasDefaultValue: parameter.HasExplicitDefaultValue || parameter.Type.Name == "bool",
+                defaultValue: parameter.HasExplicitDefaultValue ? parameter.ExplicitDefaultValue : (parameter.Type.Name == "bool" ? "false" : null)
             );
         }
     }
