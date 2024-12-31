@@ -121,5 +121,33 @@ namespace CLIParserSourceGeneratorTests
             System.Collections.Immutable.ImmutableArray<Diagnostic> outputDiagnostics = outputCompilation.GetDiagnostics();
             Assert.IsTrue(outputDiagnostics.IsEmpty); // verify the compilation with the added source has no diagnostics
         }
+
+        [TestMethod]
+        public void ReservedNamesCompilesTest()
+        {
+            string program = """
+                using System;
+
+                namespace ConsoleApp8
+                {
+                    class Program
+                    {
+                        public static void Main(string @class, string @namespace)
+                        {
+                            Console.WriteLine($"class: {@class}");
+                            Console.WriteLine($"namespace: {@namespace}");
+                        }
+                    }
+                }
+                """;
+            CompilationHelpers.CompileAndRunGenerator(program, out Compilation outputCompilation, out ImmutableArray<Diagnostic> diagnostics);
+
+            // We can now assert things about the resulting compilation:
+            Assert.IsTrue(diagnostics.IsEmpty); // there were no diagnostics created by the generators
+            Assert.IsTrue(outputCompilation.SyntaxTrees.Count() == 2); // we have two syntax trees, the original 'user' provided one, and the one added by the generator
+            string generatedCode = outputCompilation.SyntaxTrees.ToList()[1].GetText().ToString();
+            System.Collections.Immutable.ImmutableArray<Diagnostic> outputDiagnostics = outputCompilation.GetDiagnostics();
+            Assert.IsTrue(outputDiagnostics.IsEmpty); // verify the compilation with the added source has no diagnostics
+        }
     }
 }

@@ -155,5 +155,47 @@ namespace PitayaSourceGeneratorTests
                 }
             }
         }
+
+        [TestMethod]
+        public void ReservedNames_Test()
+        {
+            string program = """
+                using System;
+                using System.IO;
+
+                namespace CLIParserSourceGeneratorTests
+                {
+                    class Program
+                    {
+                        public static void Main(string @class, string @namespace)
+                        {
+                            Console.WriteLine($"class: {@class}");
+                            Console.WriteLine($"namespace: {@namespace}");
+                        }
+                    }
+                }
+                """;
+            CompilationHelpers.CompileAndRunGenerator(program, out Compilation outputCompilation, out ImmutableArray<Diagnostic> diagnostics);
+
+            var runnable = CompilationHelpers.CreateRunnable(outputCompilation);
+            using (StringWriter sw = new StringWriter())
+            {
+                // redirect stdout
+                Console.SetOut(sw);
+                // run
+                var result = runnable(["--class", "className", "--namespace", "namespace.name"]);
+                // void return type should return null
+                Assert.AreEqual(null, result);
+                // normalize output
+                var output = sw.ToString().Split('\n').Select(s => s.Trim()).Where(s => s.Length > 0).ToList();
+                List<string> expectedOutput = new List<string>() { "class: className", "namespace: namespace.name" };
+                // compare
+                Assert.AreEqual(expectedOutput.Count, output.Count);
+                for (int i = 0; i < expectedOutput.Count; i++)
+                {
+                    Assert.AreEqual(expectedOutput[i], output[i]);
+                }
+            }
+        }
     }
 }
