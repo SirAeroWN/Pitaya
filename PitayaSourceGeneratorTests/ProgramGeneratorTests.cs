@@ -44,7 +44,7 @@ namespace CLIParserSourceGeneratorTests
                             return 0;
                         }
 
-                        return Program.Main(aValue: options.aValue, anotherValue: options.anotherValue, yetAnotherValue: options.yetAnotherValue);
+                        return Program.Main(@aValue: options.@aValue, @anotherValue: options.@anotherValue, @yetAnotherValue: options.@yetAnotherValue);
                     }
                 }
                 """";

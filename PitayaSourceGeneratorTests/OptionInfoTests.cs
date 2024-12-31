@@ -36,7 +36,7 @@ namespace CLIParserSourceGeneratorTests
             var optionInfo = OptionInfo.Create(parameter);
             var properties = optionInfo.GenerateOptionProperties();
             Assert.AreEqual(2, properties.Count);
-            Assert.AreEqual("public int aValue { get; set; }", properties[0].ToFullString());
+            Assert.AreEqual("public int @aValue { get; set; }", properties[0].ToFullString());
             Assert.AreEqual("public bool _aValueValueSet { get; set; }", properties[1].ToFullString());
         }
 
@@ -47,7 +47,7 @@ namespace CLIParserSourceGeneratorTests
             var optionInfo = OptionInfo.Create(parameter);
             var properties = optionInfo.GenerateOptionProperties();
             Assert.AreEqual(1, properties.Count);
-            Assert.AreEqual("public int aValue { get; set; } = 42;", properties[0].ToFullString());
+            Assert.AreEqual("public int @aValue { get; set; } = 42;", properties[0].ToFullString());
         }
 
         [TestMethod]
@@ -77,7 +77,7 @@ namespace CLIParserSourceGeneratorTests
             var optionInfo = OptionInfo.Create(parameter);
             var property = optionInfo.BasicArrayProperty();
             Assert.IsNotNull(property);
-            Assert.AreEqual("public string[] aValue { get { return this._aValueBackingList.ToArray(); } }", property.ToFullString());
+            Assert.AreEqual("public string[] @aValue { get { return this._aValueBackingList.ToArray(); } }", property.ToFullString());
         }
 
         [TestMethod]
@@ -87,7 +87,7 @@ namespace CLIParserSourceGeneratorTests
             var optionInfo = OptionInfo.Create(parameter);
             var property = optionInfo.BasicArrayProperty();
             Assert.IsNotNull(property);
-            Assert.AreEqual("public System.Collections.Generic.List<string> aValue { get { return this._aValueBackingList; } }", property.ToFullString());
+            Assert.AreEqual("public System.Collections.Generic.List<string> @aValue { get { return this._aValueBackingList; } }", property.ToFullString());
         }
 
         [TestMethod]
@@ -117,7 +117,7 @@ namespace CLIParserSourceGeneratorTests
             var optionInfo = OptionInfo.Create(parameter);
             var property = optionInfo.BasicProperty();
             Assert.IsNotNull(property);
-            Assert.AreEqual("public int aValue { get; set; }", property.ToFullString());
+            Assert.AreEqual("public int @aValue { get; set; }", property.ToFullString());
         }
 
         [TestMethod]
@@ -127,7 +127,7 @@ namespace CLIParserSourceGeneratorTests
             var optionInfo = OptionInfo.Create(parameter);
             var property = optionInfo.BasicProperty();
             Assert.IsNotNull(property);
-            Assert.AreEqual("public string aValue { get; set; }", property.ToFullString());
+            Assert.AreEqual("public string @aValue { get; set; }", property.ToFullString());
         }
 
         [TestMethod]
@@ -137,7 +137,7 @@ namespace CLIParserSourceGeneratorTests
             var optionInfo = OptionInfo.Create(parameter);
             var property = optionInfo.BasicProperty();
             Assert.IsNotNull(property);
-            Assert.AreEqual("public int? aValue { get; set; }", property.ToFullString());
+            Assert.AreEqual("public int? @aValue { get; set; }", property.ToFullString());
         }
 
         [TestMethod]
@@ -170,7 +170,7 @@ namespace CLIParserSourceGeneratorTests
             string expected = """
                 case "--a-value":
                 {
-                    options.aValue = int.Parse(args[i]);
+                    options.@aValue = int.Parse(args[i]);
                     options._aValueValueSet = true;
                     break;
                 }
@@ -188,7 +188,7 @@ namespace CLIParserSourceGeneratorTests
             string expected = """
                 case "--a-value":
                 {
-                    options.aValue = args[i];
+                    options.@aValue = args[i];
                     options._aValueValueSet = true;
                     break;
                 }
@@ -206,7 +206,7 @@ namespace CLIParserSourceGeneratorTests
             string expected = """
                 case "--a-value":
                 {
-                    options.aValue = new Uri(args[i]);
+                    options.@aValue = new Uri(args[i]);
                     options._aValueValueSet = true;
                     break;
                 }
@@ -224,7 +224,7 @@ namespace CLIParserSourceGeneratorTests
             string expected = """
                 case "--a-value":
                 {
-                    options.aValue = new System.IO.FileInfo(args[i]);
+                    options.@aValue = new System.IO.FileInfo(args[i]);
                     options._aValueValueSet = true;
                     break;
                 }
@@ -242,7 +242,7 @@ namespace CLIParserSourceGeneratorTests
             string expected = """
                 case "--a-value":
                 {
-                    options.aValue = uint.Parse(args[i]);
+                    options.@aValue = uint.Parse(args[i]);
                     break;
                 }
                 """;
