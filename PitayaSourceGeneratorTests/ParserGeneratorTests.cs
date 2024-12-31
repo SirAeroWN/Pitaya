@@ -106,20 +106,20 @@ namespace CLIParserSourceGeneratorTests
                             {
                                 case "--a-value":
                                 {
-                                    options.aValue = int.Parse(args[i]);
+                                    options.@aValue = int.Parse(args[i]);
                                     options._aValueValueSet = true;
                                     break;
                                 }
 
                                 case "--another-value":
                                 {
-                                    options.anotherValue = uint.Parse(args[i]);
+                                    options.@anotherValue = uint.Parse(args[i]);
                                     break;
                                 }
 
                                 case "--yet-another-value":
                                 {
-                                    options.yetAnotherValue = args[i];
+                                    options.@yetAnotherValue = args[i];
                                     options._yetAnotherValueValueSet = true;
                                     break;
                                 }
@@ -261,10 +261,10 @@ namespace CLIParserSourceGeneratorTests
                             {
                                 case "--a-value":
                                 {
-                                    options.aValue = true;
+                                    options.@aValue = true;
                                     if (i < args.Length && bool.TryParse(args[i], out bool value))
                                     {
-                                        options.aValue = value;
+                                        options.@aValue = value;
                                     }
                                     else
                                     {
@@ -276,10 +276,10 @@ namespace CLIParserSourceGeneratorTests
 
                                 case "--another-value":
                                 {
-                                    options.anotherValue = true;
+                                    options.@anotherValue = true;
                                     if (i < args.Length && bool.TryParse(args[i], out bool value))
                                     {
-                                        options.anotherValue = value;
+                                        options.@anotherValue = value;
                                     }
                                     else
                                     {
@@ -291,10 +291,10 @@ namespace CLIParserSourceGeneratorTests
 
                                 case "--yet-another-value":
                                 {
-                                    options.yetAnotherValue = true;
+                                    options.@yetAnotherValue = true;
                                     if (i < args.Length && bool.TryParse(args[i], out bool value))
                                     {
-                                        options.yetAnotherValue = value;
+                                        options.@yetAnotherValue = value;
                                     }
                                     else
                                     {
