@@ -116,7 +116,7 @@ namespace CLIParserSourceGenerator
 
         internal MemberDeclarationSyntax BasicArrayProperty()
         {
-            string property = $"public {this.Parameter.Type.ToDisplayString()} {this.PropertyName} {{ get {{ return this.{this.BackingListName}{this.GetArrayConversionMethod()}; }} }}";
+            string property = $"public {this.Parameter.Type.ToDisplayString()} @{this.PropertyName} {{ get {{ return this.{this.BackingListName}{this.GetArrayConversionMethod()}; }} }}";
             MemberDeclarationSyntax? propertySyntax = ParseMemberDeclaration(property);
             if (propertySyntax is null)
             {
@@ -152,7 +152,7 @@ namespace CLIParserSourceGenerator
             string type = this.Parameter.Type.ToDisplayString();
             string nullable = this.Parameter.IsNullable && this.Parameter.Type.NullableAnnotation != NullableAnnotation.Annotated ? "?" : "";
             string defaultValue = this.Parameter.HasDefaultValue ? $" = {this.GetDefaultValue()};" : "";
-            string property = $"public {type}{nullable} {this.PropertyName} {{ get; set; }}{defaultValue}";
+            string property = $"public {type}{nullable} @{this.PropertyName} {{ get; set; }}{defaultValue}";
             MemberDeclarationSyntax? propertySyntax = ParseMemberDeclaration(property);
             if (propertySyntax is null)
             {
@@ -191,7 +191,7 @@ namespace CLIParserSourceGenerator
                     IfStatement(
                         ParseExpression("i < args.Length && bool.TryParse(args[i], out bool value)"),
                         Block(
-                            ParseStatement($"options.{this.PropertyName} = value;")
+                            ParseStatement($"options.@{this.PropertyName} = value;")
                         )
                     )
                     .WithElse(
@@ -268,7 +268,7 @@ namespace CLIParserSourceGenerator
 
         private static StatementSyntax GenerateParseStatement(string propertyName, ITypeSymbol parameter)
         {
-            return ParseStatement($"options.{propertyName} = {GenerateParseExpression(parameter)};");
+            return ParseStatement($"options.@{propertyName} = {GenerateParseExpression(parameter)};");
         }
 
         private static StatementSyntax GenerateArrayLikeParseStatement(string propertyName, ITypeSymbol parameter)
