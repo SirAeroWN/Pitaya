@@ -104,7 +104,7 @@ namespace CLIParserSourceGenerator
                                     )
                                 ),
                                 // TODO: the should return, await, or simply call the main method based on its return type
-                                ParseStatement($"{this.GenerateReturnStyle()}Program.Main({string.Join(", ", this._options.Select(o => $"{o.Parameter.ParameterName}: options.{o.PropertyName}"))});")
+                                ParseStatement($"{this.GenerateReturnStyle()}Program.Main({string.Join(", ", this._options.Select(o => $"@{o.Parameter.ParameterName}: options.@{o.PropertyName}"))});")
                             )
                         )
                     )
