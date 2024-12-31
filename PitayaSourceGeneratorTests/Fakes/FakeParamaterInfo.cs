@@ -80,6 +80,12 @@ namespace CLIParserSourceGeneratorTests.Fakes
                 type = mockedType.Object;
             }
 
+            if (typeName == "bool")
+            {
+                hasDefaultValue = true;
+                defaultValue = "false";
+            }
+
             return new FakeParameterInfo(paramName, type, hasDefaultValue ?? false, defaultValue);
         }
 

@@ -103,6 +103,86 @@ namespace CLIParserSourceGeneratorTests
         }
 
         [TestMethod]
+        public void SimpleBoolTest()
+        {
+            string mainReturnType = "int";
+            List<OptionInfo> options = [
+                OptionInfo.Create(FakeParameterInfo.Create(parameterName: "aValue", typeName: "bool"))
+            ];
+            string comments = """
+                <summary>
+                test
+                </summary>
+                <param name="aValue">Pass a value</param>
+                """;
+            List<string> commentLines = comments.Split('\n').Select(t => t.Trim()).ToList();
+
+            string program = $$"""
+                class Program
+                {
+                    {{string.Join("\n", commentLines.Select(cl => "/// " + cl))}}
+                    public static int Main(bool aValue)
+                    {
+                        return aValue ? 1 : 0;
+                    }
+                }
+                """;
+
+            Func<string[], int?> generatedMethod = CompilationHelpers.CompileProgram(program, MainType, mainReturnType, AssemblyName, options, commentLines);
+
+            Assert.AreEqual(1, generatedMethod(["--a-value"]));
+        }
+
+        [DataTestMethod]
+        [DataRow(3, new string[] { "--a-value", "--another-value" })]
+        [DataRow(2, new string[] { "--another-value" })]
+        [DataRow(1, new string[] { "--a-value" })]
+        [DataRow(0, new string[] { })]
+
+        [DataRow(3, new string[] { "--a-value", "true", "--another-value", "true" })]
+        [DataRow(1, new string[] { "--a-value", "true", "--another-value", "false" })]
+        [DataRow(2, new string[] { "--a-value", "false", "--another-value", "true" })]
+        [DataRow(0, new string[] { "--a-value", "false", "--another-value", "false" })]
+
+        //[DataRow(3, new string[] { "--a-value", "--another-value" })]
+        [DataRow(1, new string[] { "--a-value", "--another-value", "false" })]
+        [DataRow(2, new string[] { "--a-value", "false", "--another-value" })]
+        //[DataRow(0, new string[] { "--a-value", "false", "--another-value", "false" })]
+        public void MultipleBoolTest(int expected, string[] args)
+        {
+            string mainReturnType = "int";
+            List<OptionInfo> options = [
+                OptionInfo.Create(FakeParameterInfo.Create(parameterName: "aValue", typeName: "bool"))
+                , OptionInfo.Create(FakeParameterInfo.Create(parameterName: "anotherValue", typeName: "bool"))
+            ];
+            string comments = """
+                <summary>
+                test
+                </summary>
+                <param name="aValue">Pass a value</param>
+                """;
+            List<string> commentLines = comments.Split('\n').Select(t => t.Trim()).ToList();
+
+            string program = $$"""
+                class Program
+                {
+                    {{string.Join("\n", commentLines.Select(cl => "/// " + cl))}}
+                    public static int Main(bool aValue, bool anotherValue)
+                    {
+                        int result = 0;
+                        result += aValue ? 1 : 0;
+                        result += anotherValue ? 2 : 0;
+                        return result;
+                    }
+                }
+                """;
+
+            Func<string[], int?> generatedMethod = CompilationHelpers.CompileProgram(program, MainType, mainReturnType, AssemblyName, options, commentLines);
+
+            Assert.AreEqual(expected, generatedMethod(args), string.Join(" ", args));
+        }
+
+        [TestMethod]
         public void QuotedStringTest()
         {
             string mainReturnType = "int";

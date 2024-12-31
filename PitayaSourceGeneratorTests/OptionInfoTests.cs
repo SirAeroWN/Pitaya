@@ -169,9 +169,11 @@ namespace CLIParserSourceGeneratorTests
             Assert.IsNotNull(switchSection);
             string expected = """
                 case "--a-value":
+                {
                     options.aValue = int.Parse(args[i]);
                     options._aValueValueSet = true;
                     break;
+                }
                 """;
             Assert.AreEqual(expected, switchSection.NormalizeWhitespace().ToFullString());
         }
@@ -185,9 +187,11 @@ namespace CLIParserSourceGeneratorTests
             Assert.IsNotNull(switchSection);
             string expected = """
                 case "--a-value":
+                {
                     options.aValue = args[i];
                     options._aValueValueSet = true;
                     break;
+                }
                 """;
             Assert.AreEqual(expected, switchSection.NormalizeWhitespace().ToFullString());
         }
@@ -201,9 +205,11 @@ namespace CLIParserSourceGeneratorTests
             Assert.IsNotNull(switchSection);
             string expected = """
                 case "--a-value":
+                {
                     options.aValue = new Uri(args[i]);
                     options._aValueValueSet = true;
                     break;
+                }
                 """;
             Assert.AreEqual(expected, switchSection.NormalizeWhitespace().ToFullString());
         }
@@ -217,9 +223,11 @@ namespace CLIParserSourceGeneratorTests
             Assert.IsNotNull(switchSection);
             string expected = """
                 case "--a-value":
+                {
                     options.aValue = new System.IO.FileInfo(args[i]);
                     options._aValueValueSet = true;
                     break;
+                }
                 """;
             Assert.AreEqual(expected, switchSection.NormalizeWhitespace().ToFullString());
         }
@@ -233,8 +241,10 @@ namespace CLIParserSourceGeneratorTests
             Assert.IsNotNull(switchSection);
             string expected = """
                 case "--a-value":
+                {
                     options.aValue = uint.Parse(args[i]);
                     break;
+                }
                 """;
             Assert.AreEqual(expected, switchSection.NormalizeWhitespace().ToFullString());
         }

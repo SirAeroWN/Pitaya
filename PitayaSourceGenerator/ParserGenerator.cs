@@ -40,7 +40,9 @@ namespace CLIParserSourceGenerator
                     )
                     .WithStatements(
                         SingletonList<StatementSyntax>(
-                            ParseStatement("throw new ArgumentException($\"'{arg}' is not a recognized option\");")
+                            Block(
+                                ParseStatement("throw new ArgumentException($\"'{arg}' is not a recognized option\");")
+                            )
                         )
                     )
             );
@@ -52,6 +54,94 @@ namespace CLIParserSourceGenerator
                 ParseStatement("throw new ArgumentException($\"Missing required argument{(missing.Count > 1 ? \"s\" : \"\")}: {string.Join(\", \", missing)}\");"),
             ];
 
+            List<StatementSyntax> bodyBlock = new()
+            {
+                ParseStatement($"{this._optionsClassName} options = new();"),
+                ForStatement(
+                    Block(
+                        ParseStatement("string arg = args[i];"),
+                        ParseStatement("i++;"),
+                        SwitchStatement(
+                            IdentifierName("arg")
+                        )
+                        .WithSections(
+                            List<SwitchSectionSyntax>(sections)
+                        )
+                    )
+                )
+                .WithDeclaration(
+                    VariableDeclaration(
+                        PredefinedType(
+                            Token(SyntaxKind.IntKeyword)
+                        )
+                    )
+                    .WithVariables(
+                        SingletonSeparatedList<VariableDeclaratorSyntax>(
+                            VariableDeclarator(
+                                Identifier("i")
+                            )
+                            .WithInitializer(
+                                EqualsValueClause(
+                                    LiteralExpression(
+                                        SyntaxKind.NumericLiteralExpression,
+                                        Literal(0)
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+                .WithCondition(
+                    BinaryExpression(
+                        SyntaxKind.LogicalAndExpression,
+                        BinaryExpression(
+                            SyntaxKind.LessThanExpression,
+                            IdentifierName("i"),
+                            ParseExpression("args.Length")
+                        ),
+                        PrefixUnaryExpression(
+                            SyntaxKind.LogicalNotExpression,
+                            ParseExpression("options.___ShowHelp___")
+                        )
+                    )
+                )
+                .WithIncrementors(
+                    SingletonSeparatedList<ExpressionSyntax>(
+                        PostfixUnaryExpression(
+                            SyntaxKind.PostIncrementExpression,
+                            IdentifierName("i")
+                        )
+                    )
+                ),
+            };
+
+            if (this._options.Any(o => o.ValueSetPropertyName != null))
+            {
+                bodyBlock.Add(
+                    IfStatement(
+                        BinaryExpression(
+                            SyntaxKind.LogicalAndExpression,
+                            PrefixUnaryExpression(
+                                SyntaxKind.LogicalNotExpression,
+                                ParseExpression("options.___ShowHelp___")
+                            ),
+                            PrefixUnaryExpression(
+                                SyntaxKind.LogicalNotExpression,
+                                ParenthesizedExpression(
+                                    this.GenerateAndedSetValues()
+                                )
+                            )
+                        ),
+                        Block(missingOptionStatements)
+                    )
+                );
+            }
+
+            bodyBlock.Add(
+                ReturnStatement(
+                    IdentifierName("options")
+                )
+            );
 
             return ClassDeclaration(this.ClassName)
                 .WithModifiers(
@@ -97,82 +187,7 @@ namespace CLIParserSourceGenerator
                         )
                         .WithBody(
                             Block(
-                                ParseStatement($"{this._optionsClassName} options = new();"),
-                                ForStatement(
-                                    Block(
-                                        ParseStatement("string arg = args[i];"),
-                                        ParseStatement("i++;"),
-                                        SwitchStatement(
-                                            IdentifierName("arg")
-                                        )
-                                        .WithSections(
-                                            List<SwitchSectionSyntax>(sections)
-                                        )
-                                    )
-                                )
-                                .WithDeclaration(
-                                    VariableDeclaration(
-                                        PredefinedType(
-                                            Token(SyntaxKind.IntKeyword)
-                                        )
-                                    )
-                                    .WithVariables(
-                                        SingletonSeparatedList<VariableDeclaratorSyntax>(
-                                            VariableDeclarator(
-                                                Identifier("i")
-                                            )
-                                            .WithInitializer(
-                                                EqualsValueClause(
-                                                    LiteralExpression(
-                                                        SyntaxKind.NumericLiteralExpression,
-                                                        Literal(0)
-                                                    )
-                                                )
-                                            )
-                                        )
-                                    )
-                                )
-                                .WithCondition(
-                                    BinaryExpression(
-                                        SyntaxKind.LogicalAndExpression,
-                                        BinaryExpression(
-                                            SyntaxKind.LessThanExpression,
-                                            IdentifierName("i"),
-                                            ParseExpression("args.Length")
-                                        ),
-                                        PrefixUnaryExpression(
-                                            SyntaxKind.LogicalNotExpression,
-                                            ParseExpression("options.___ShowHelp___")
-                                        )
-                                    )
-                                )
-                                .WithIncrementors(
-                                    SingletonSeparatedList<ExpressionSyntax>(
-                                        PostfixUnaryExpression(
-                                            SyntaxKind.PostIncrementExpression,
-                                            IdentifierName("i")
-                                        )
-                                    )
-                                ),
-                                IfStatement(
-                                    BinaryExpression(
-                                        SyntaxKind.LogicalAndExpression,
-                                        PrefixUnaryExpression(
-                                            SyntaxKind.LogicalNotExpression,
-                                            ParseExpression("options.___ShowHelp___")
-                                        ),
-                                        PrefixUnaryExpression(
-                                            SyntaxKind.LogicalNotExpression,
-                                            ParenthesizedExpression(
-                                                this.GenerateAndedSetValues()
-                                            )
-                                        )
-                                    ),
-                                    Block(missingOptionStatements)
-                                ),
-                                ReturnStatement(
-                                    IdentifierName("options")
-                                )
+                                bodyBlock
                             )
                         )
                     )
@@ -213,11 +228,15 @@ namespace CLIParserSourceGenerator
                     )
                 )
                 .WithStatements(
-                    List<StatementSyntax>(
-                        new StatementSyntax[]{
-                            ParseStatement("options.___ShowHelp___ = true;"),
-                            BreakStatement()
-                        }
+                    SingletonList<StatementSyntax>(
+                        Block(
+                            List<StatementSyntax>(
+                                new StatementSyntax[]{
+                                    ParseStatement("options.___ShowHelp___ = true;"),
+                                    BreakStatement()
+                                }
+                            )
+                        )
                     )
                 );
         }

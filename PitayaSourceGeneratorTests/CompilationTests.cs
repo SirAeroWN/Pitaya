@@ -27,11 +27,11 @@ namespace CLIParserSourceGeneratorTests
         {
             #region generate code
 
-            var mockedmainType = new Mock<INamedTypeSymbol>(MockBehavior.Strict);
-            mockedmainType.Setup(t => t.Name).Returns("Program");
-            var mockedmainNamespace = new Mock<INamespaceSymbol>(MockBehavior.Strict);
-            mockedmainNamespace.Setup(t => t.ToDisplayString(It.IsAny<SymbolDisplayFormat?>())).Returns("CLIParserSourceGeneratorTests");
-            mockedmainType.SetupGet(t => t.ContainingNamespace).Returns(mockedmainNamespace.Object);
+            var mockedMainType = new Mock<INamedTypeSymbol>(MockBehavior.Strict);
+            mockedMainType.Setup(t => t.Name).Returns("Program");
+            var mockedMainNamespace = new Mock<INamespaceSymbol>(MockBehavior.Strict);
+            mockedMainNamespace.Setup(t => t.ToDisplayString(It.IsAny<SymbolDisplayFormat?>())).Returns("CLIParserSourceGeneratorTests");
+            mockedMainType.SetupGet(t => t.ContainingNamespace).Returns(mockedMainNamespace.Object);
 
             string mainReturnType = "int";
             string assemblyName = "test";
@@ -46,7 +46,7 @@ namespace CLIParserSourceGeneratorTests
                 """;
             List<string> commentLines = comments.Split('\n').Select(t => t.Trim()).ToList();
 
-            var overallSourceGenerator = new OverallSourceGeneratorExposed(mockedmainType.Object, mainReturnType, assemblyName, options, commentLines);
+            var overallSourceGenerator = new OverallSourceGeneratorExposed(mockedMainType.Object, mainReturnType, assemblyName, options, commentLines);
             string source = overallSourceGenerator.GenerateSource();
 
             string program = """
