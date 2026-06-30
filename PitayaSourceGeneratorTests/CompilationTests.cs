@@ -149,5 +149,38 @@ namespace CLIParserSourceGeneratorTests
             System.Collections.Immutable.ImmutableArray<Diagnostic> outputDiagnostics = outputCompilation.GetDiagnostics();
             Assert.IsTrue(outputDiagnostics.IsEmpty); // verify the compilation with the added source has no diagnostics
         }
+
+        [TestMethod]
+        public void NullableArrayCompilesTest()
+        {
+            string program = """
+                using System;
+
+                namespace ConsoleApp8
+                {
+                    class Program
+                    {
+                        /// <summary>
+                        /// My sample program
+                        /// </summary>
+                        /// <param name="required"></param>
+                        /// <param name="optionalValues"></param>
+                        public static void Main(int required, string[]? optionalValues)
+                        {
+                            Console.WriteLine($"required: {required}");
+                            Console.WriteLine($"optionalValues was {(optionalValues == null ? "not passed" : "passed")}");
+                        }
+                    }
+                }
+                """;
+            CompilationHelpers.CompileAndRunGenerator(program, out Compilation outputCompilation, out ImmutableArray<Diagnostic> diagnostics);
+
+            // We can now assert things about the resulting compilation:
+            Assert.IsTrue(diagnostics.IsEmpty, "There were diagnostics created by the generators"); // there were no diagnostics created by the generators
+            Assert.AreEqual(2, outputCompilation.SyntaxTrees.Count(), "Unexpected number of syntax trees"); // we have two syntax trees, the original 'user' provided one, and the one added by the generator
+            string generatedCode = outputCompilation.SyntaxTrees.ToList()[1].GetText().ToString();
+            System.Collections.Immutable.ImmutableArray<Diagnostic> outputDiagnostics = outputCompilation.GetDiagnostics();
+            Assert.IsTrue(outputDiagnostics.IsEmpty, $"There were diagnostics in the output compilation:\n{string.Join("\n", outputDiagnostics)}"); // verify the compilation with the added source has no diagnostics
+        }
     }
 }

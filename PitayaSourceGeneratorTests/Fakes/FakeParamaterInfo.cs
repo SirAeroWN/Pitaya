@@ -116,15 +116,15 @@ namespace CLIParserSourceGeneratorTests.Fakes
             return mockedNamespace.Object;
         }
 
-        public static IArrayTypeSymbol ArrayTypeSymbol(ITypeSymbol? elementType)
+        public static IArrayTypeSymbol ArrayTypeSymbol(ITypeSymbol? elementType, NullableAnnotation? nullableAnnotation = null)
         {
             elementType ??= MockType(NullableAnnotation.None, "int").Object;
             var mockedType = new Mock<IArrayTypeSymbol>(MockBehavior.Strict);
-            mockedType.SetupGet(t => t.NullableAnnotation).Returns(NullableAnnotation.None);
+            mockedType.SetupGet(t => t.NullableAnnotation).Returns(nullableAnnotation ?? NullableAnnotation.None);
             mockedType.SetupGet(t => t.ElementType).Returns(elementType);
             mockedType.SetupGet(t => t.IsValueType).Returns(false);
             mockedType.SetupGet(t => t.ContainingNamespace).Returns(MockNamespaceSymbol("System"));
-            mockedType.Setup(t => t.ToDisplayString(It.IsAny<SymbolDisplayFormat>())).Returns(elementType.ToDisplayString() + "[]");
+            mockedType.Setup(t => t.ToDisplayString(It.IsAny<SymbolDisplayFormat>())).Returns(elementType.ToDisplayString() + "[]" + (nullableAnnotation == NullableAnnotation.Annotated ? "?" : ""));
             return mockedType.Object;
         }
 
