@@ -157,6 +157,98 @@ namespace PitayaSourceGeneratorTests
         }
 
         [TestMethod]
+        public void NullableArrayRuns_ValuesPassed_Test()
+        {
+            string program = """
+                using System;
+                using System.IO;
+
+                namespace CLIParserSourceGeneratorTests
+                {
+                    class Program
+                    {
+                        /// <summary>
+                        /// My sample program
+                        /// </summary>
+                        /// <param name="optionals"></param>
+                        public static void Main(string[]? optionals)
+                        {
+                            Console.WriteLine($"optionals was {(optionals == null ? "not passed" : "passed")}");
+                            Console.WriteLine($"optionals has {optionals?.Length ?? 0} elements");
+                        }
+                    }
+                }
+                """;
+            CompilationHelpers.CompileAndRunGenerator(program, out Compilation outputCompilation, out ImmutableArray<Diagnostic> diagnostics);
+
+            var runnable = CompilationHelpers.CreateRunnable(outputCompilation);
+            using (StringWriter sw = new StringWriter())
+            {
+                // redirect stdout
+                Console.SetOut(sw);
+                // run
+                var result = runnable(["--optionals", "totally_real.txt", "totally_real2.txt"]);
+                // void return type should return null
+                Assert.AreEqual(null, result);
+                // normalize output
+                var output = sw.ToString().Split('\n').Select(s => s.Trim()).Where(s => s.Length > 0).ToList();
+                List<string> expectedOutput = new List<string>() { "optionals was passed", "optionals has 2 elements" };
+                // compare
+                Assert.AreEqual(expectedOutput.Count, output.Count);
+                for (int i = 0; i < expectedOutput.Count; i++)
+                {
+                    Assert.AreEqual(expectedOutput[i], output[i]);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void NullableArrayRuns_NoValuesPassed_Test()
+        {
+            string program = """
+                using System;
+                using System.IO;
+
+                namespace CLIParserSourceGeneratorTests
+                {
+                    class Program
+                    {
+                        /// <summary>
+                        /// My sample program
+                        /// </summary>
+                        /// <param name="optionals"></param>
+                        public static void Main(string[]? optionals)
+                        {
+                            Console.WriteLine($"optionals was {(optionals == null ? "not passed" : "passed")}");
+                            Console.WriteLine($"optionals has {optionals?.Length ?? 0} elements");
+                        }
+                    }
+                }
+                """;
+            CompilationHelpers.CompileAndRunGenerator(program, out Compilation outputCompilation, out ImmutableArray<Diagnostic> diagnostics);
+
+            var runnable = CompilationHelpers.CreateRunnable(outputCompilation);
+            using (StringWriter sw = new StringWriter())
+            {
+                // redirect stdout
+                Console.SetOut(sw);
+                // run
+                var result = runnable([]);
+                // void return type should return null
+                Assert.AreEqual(null, result);
+                // normalize output
+                var output = sw.ToString().Split('\n').Select(s => s.Trim()).Where(s => s.Length > 0).ToList();
+                List<string> expectedOutput = new List<string>() { "optionals was not passed", "optionals has 0 elements" };
+                // compare
+                Assert.AreEqual(expectedOutput.Count, output.Count);
+                for (int i = 0; i < expectedOutput.Count; i++)
+                {
+                    Assert.AreEqual(expectedOutput[i], output[i]);
+                }
+            }
+        }
+
+        [TestMethod]
         public void ReservedNames_Test()
         {
             string program = """

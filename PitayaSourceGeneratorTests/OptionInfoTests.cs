@@ -101,6 +101,16 @@ namespace CLIParserSourceGeneratorTests
         }
 
         [TestMethod]
+        public void NullableArrayPropertyTest()
+        {
+            var parameter = FakeParameterInfo.Create(parameterName: "aValue", typeName: "string[]", nullableAnnotation: NullableAnnotation.Annotated);
+            var optionInfo = OptionInfo.Create(parameter);
+            var property = optionInfo.BasicArrayProperty();
+            Assert.IsNotNull(property);
+            Assert.AreEqual("public string[]? @aValue { get { return this._aValueBackingList.Count > 0 ? this._aValueBackingList.ToArray() : null; } }", property.ToFullString());
+        }
+
+        [TestMethod]
         public void GetListConversionMethodTest()
         {
             var parameter = FakeParameterInfo.Create(parameterName: "aValue", typeName: "System.Collections.Generic.List<string>");

@@ -49,7 +49,7 @@ namespace CLIParserSourceGenerator
         public static OptionInfo Create(ParameterInfo parameter)
         {
             string parameterType = parameter.Type.ToDisplayString();
-            bool isArrayLike = parameterType.EndsWith("[]") || parameterType.StartsWith("System.Collections.Generic.List<");
+            bool isArrayLike = parameterType.EndsWith("[]") || parameterType.EndsWith("[]?") || parameterType.StartsWith("System.Collections.Generic.List<");
             string propertyName = Utilities.Propertyify(parameter.ParameterName);
             return new OptionInfo(
                 optionName: Utilities.Optionify(parameter.ParameterName)
@@ -116,7 +116,12 @@ namespace CLIParserSourceGenerator
 
         internal MemberDeclarationSyntax BasicArrayProperty()
         {
-            string property = $"public {this.Parameter.Type.ToDisplayString()} @{this.PropertyName} {{ get {{ return this.{this.BackingListName}{this.GetArrayConversionMethod()}; }} }}";
+            string type = this.Parameter.Type.ToDisplayString();
+            bool isNullable = this.Parameter.IsNullable && this.Parameter.Type.NullableAnnotation != NullableAnnotation.NotAnnotated;
+            //string nullable = isNullable ? "?" : "";
+            string retrieveBackingValue = $"this.{this.BackingListName}{this.GetArrayConversionMethod()}";
+            string getBody = isNullable ? $"return this.{this.BackingListName}.Count > 0 ? {retrieveBackingValue} : null" : $"return {retrieveBackingValue}";
+            string property = $"public {type} @{this.PropertyName} {{ get {{ {getBody}; }} }}";
             MemberDeclarationSyntax? propertySyntax = ParseMemberDeclaration(property);
             if (propertySyntax is null)
             {
@@ -133,7 +138,7 @@ namespace CLIParserSourceGenerator
         internal string GetArrayConversionMethod()
         {
             string type = this.Parameter.Type.ToDisplayString();
-            if (type.EndsWith("[]"))
+            if (type.EndsWith("[]") || type.EndsWith("[]?"))
             {
                 return ".ToArray()";
             }
